@@ -73,10 +73,13 @@ class Signer(object):
         commandInterest = ndn.Interest(commandInterestName)
         try:
             keyChain = ndn.security.KeyChain()
-            keyChain.sign(commandInterest)
-        except:
+            certName = keyChain.getIdentityManager().getDefaultCertificateNameForIdentity(self.site_prefix)
+            identity = keyChain.getIdentityManager().getCertificate(certName)
+
+            keyChain.sign(commandInterest, certName)
+        except Exception as e:
             print("ERROR: cannot generate signature, please submit your certification " \
-                  "request to NDN testbed root")
+                  "request to NDN testbed root: %s" % e)
             return
 
         http_request = "%s/cert-requests/get/" % URL

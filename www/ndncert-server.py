@@ -32,12 +32,16 @@ import string
 import random
 import datetime
 import base64
-import pyndn as ndn
+
 import json
 import urllib.parse
 
 from bson import json_util
 from bson.objectid import ObjectId
+
+import pyndn as ndn
+from pyndn.security import KeyChain
+from operator_verify_policy_manager import OperatorVerifyPolicyManager
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 
@@ -260,14 +264,26 @@ def get_candidates():
     if operator == None:
         abort(403)
 
-    # @todo Command Interest verificateion
+    try:
+        keyChain = KeyChain(policyManager = OperatorVerifyPolicyManager(operator))
 
+        def onVerified(interest):
+            pass
+
+        def onVerifyFailed(interest):
+            raise RuntimeError("Operator verification failed")
+
+        keyChain.verifyInterest(ndn.Interest(commandInterestName), onVerified, onVerifyFailed, stepCount=1)
+    except Exception as e:
+        print("ERROR: %s" % e)
+        abort(403)
+
+    # Will get here if verification succeeds
     requests = mongo.db.requests.find({'operator_id': str(operator['_id'])})
     output = []
     for req in requests:
         output.append(req)
 
-    # return json.dumps (output)
     return json.dumps(output, default=json_util.default)
 
 @app.route('/cert/submit/', methods = ['POST'])
