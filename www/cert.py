@@ -11,7 +11,7 @@ from datetime import datetime
 
 cert = Blueprint('cert', __name__, template_folder='templates')
 
-import auth
+from . import auth
 
 # Public interface
 @cert.route('/cert/get/', methods = ['GET'])

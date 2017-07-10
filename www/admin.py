@@ -6,7 +6,7 @@ from bson.objectid import ObjectId
 
 admin = Blueprint('admin', __name__, template_folder='templates')
 
-import auth
+from . import auth
 
 from wtforms import Form, BooleanField, TextField, SubmitField, HiddenField, TextAreaField, validators
 from wtforms.validators import *

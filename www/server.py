@@ -41,7 +41,7 @@ from bson.objectid import ObjectId
 
 import pyndn as ndn
 from pyndn.security import KeyChain
-from operator_verify_policy_manager import OperatorVerifyPolicyManager
+from .operator_verify_policy_manager import OperatorVerifyPolicyManager
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 
@@ -54,8 +54,8 @@ mail = Mail(app)
 app.mongo = mongo
 app.mail = mail
 
-from admin import admin
-from cert import cert
+from .admin import admin
+from .cert import cert
 app.register_blueprint(admin)
 app.register_blueprint(cert)
 
