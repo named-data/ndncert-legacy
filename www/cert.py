@@ -1,3 +1,20 @@
+#!/usr/bin/env python3
+
+# Copyright (c) 2014-2017  Regents of the University of California
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 from flask import Blueprint, render_template, abort, request, redirect, url_for, Response, current_app, make_response
 from jinja2 import TemplateNotFound
 from functools import wraps
@@ -6,7 +23,7 @@ from bson.objectid import ObjectId
 import base64
 
 import pyndn as ndn
-import pyndn.security.certificate
+import pyndn.security.v2.certificate_v2
 from datetime import datetime
 
 cert = Blueprint('cert', __name__, template_folder='templates')
@@ -31,7 +48,7 @@ def get_certificate():
         response.headers['Content-Disposition'] = 'attachment; filename=%s.ndncert' % str(ndn_name[-3])
         return response
     else:
-        d = ndn.security.certificate.IdentityCertificate()
+        d = ndn.security.v2.certificate_v2.CertificateV2()
         d.wireDecode(bytearray(base64.b64decode(cert['cert'])))
 
         notBefore = datetime.utcfromtimestamp(d.getNotBefore() / 1000)
@@ -61,7 +78,7 @@ def list_certs_html():
     certsWithInfo = []
     for cert in certs:
         info = cert
-        d = ndn.security.certificate.IdentityCertificate()
+        d = ndn.security.v2.certificate_v2.CertificateV2()
         d.wireDecode(bytearray(base64.b64decode(cert['cert'])))
 
         notBefore = datetime.utcfromtimestamp(d.getNotBefore() / 1000)

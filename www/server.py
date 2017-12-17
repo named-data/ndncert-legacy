@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Copyright (c) 2014  Regents of the University of California
+# Copyright (c) 2014-2017  Regents of the University of California
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -264,19 +264,20 @@ def get_candidates():
     if operator == None:
         abort(403)
 
-    try:
-        keyChain = KeyChain(policyManager = OperatorVerifyPolicyManager(operator))
+    # TODO: re-enable when v2.Validator is ready
+    # try:
+    #     keyChain = KeyChain(policyManager = OperatorVerifyPolicyManager(operator))
 
-        def onVerified(interest):
-            pass
+    #     def onVerified(interest):
+    #         pass
 
-        def onVerifyFailed(interest):
-            raise RuntimeError("Operator verification failed")
+    #     def onVerifyFailed(interest):
+    #         raise RuntimeError("Operator verification failed")
 
-        keyChain.verifyInterest(ndn.Interest(commandInterestName), onVerified, onVerifyFailed, stepCount=1)
-    except Exception as e:
-        print("ERROR: %s" % e)
-        abort(403)
+    #     keyChain.verifyInterest(ndn.Interest(commandInterestName), onVerified, onVerifyFailed, stepCount=1)
+    # except Exception as e:
+    #     print("ERROR: %s" % e)
+    #     abort(403)
 
     # Will get here if verification succeeds
     requests = mongo.db.requests.find({'operator_id': str(operator['_id'])})
