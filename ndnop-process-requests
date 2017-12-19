@@ -37,6 +37,12 @@ import pyndn as ndn
 import pyndn.security
 import pyndn.security.v2
 
+try:
+    defaultIdentity = ndn.security.KeyChain().getPib().getDefaultIdentity().getName()
+except:
+    sys.stderr.write("No default identity configured\n")
+    sys.exit(1)
+
 parser = argparse.ArgumentParser(description='Process NDNCERT requests')
 parser.add_argument('-g', '--guest-only', dest='guest_only', action='store_true',
                     help='''Process only guest requests''')
