@@ -25,4 +25,4 @@ RUN ldconfig
 
 COPY ndnop-process-requests /usr/bin/ndnop-process-requests
 
-# docker build -t ndnop:latest .
+# docker build -t cawka/ndnop-process-requests:latest .
