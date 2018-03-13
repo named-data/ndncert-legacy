@@ -75,7 +75,7 @@ def get_certificates():
 @cert.route('/cert/list/html', methods = ['GET'])
 def list_certs_html():
     certs = current_app.mongo.db.certs.find({ '$query': {},
-                                         '$orderby': { 'name' : 1, 'operator.site_prefix': 1 }})
+                                         '$orderby': { 'operator.site_prefix': 1, 'name' : 1 }})
     certsWithInfo = []
     for cert in certs:
         info = cert

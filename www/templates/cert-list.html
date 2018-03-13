@@ -28,10 +28,10 @@
     {% endif %}
 
     <tr class="{% if loop.index % 2 %}odd{% else %}even{% endif %}">
-      <td>{{ cert.name }}</td>
-      <td nowrap>Expires {{ cert.to }}</td>
-      <td><a href="{{ url_for("cert.get_certificate", name=cert.name, view=1) }}">View</a></td>
-      <td><a href="{{ url_for("cert.get_certificate", name=cert.name) }}">Download</a></td>
+      <td class="eight columns" style="overflow: hidden; text-overflow: ellipsis;">{{ cert.name }}</td>
+      <td class="two columns">Expires {{ cert.to }}</td>
+      <td class="one columns"><a href="{{ url_for("cert.get_certificate", name=cert.name, view=1) }}">View</a></td>
+      <td class="one columns"><a href="{{ url_for("cert.get_certificate", name=cert.name) }}">Download</a></td>
     </tr>
   {% endfor %}
 </table>
