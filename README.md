@@ -41,7 +41,7 @@ in the web server database (`operators` collection).
 
 To obtain a valid NDN testbed certificate, user should follow the following steps:
 
-* Go to http://ndncert.named-data.net, initiate certification by submitting email address
+* Go to https://ndncert.named-data.net, initiate certification by submitting email address
 
     ![step 1](https://raw.githubusercontent.com/named-data/ndncert/master/docs/user-1.jpg)
 

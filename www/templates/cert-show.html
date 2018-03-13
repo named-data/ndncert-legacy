@@ -31,6 +31,7 @@
       <td nowrap>Subject info</td>
       <td>
         <table style="margin: 0px">
+        {# 
         {% for info in cert.info.getSubjectDescriptions() %}
           {% if info.getValue().__str__() != "" %}
         <tr>
@@ -39,6 +40,7 @@
         </tr>
           {% endif %}
         {% endfor %}
+        #}
         </table>
       </td>
     </tr>

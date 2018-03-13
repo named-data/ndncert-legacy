@@ -1,22 +1,20 @@
 Greetings, {{ fullname }}!
 
 Your NDN certificate has been approved and is ready for download.  
-You can download and install it using the following command:
+You can download and install it using the following commands:
 
-ndnsec-install-cert "{{ URL }}/cert/get/?name={{ quoted_cert_name }}"
-
+    wget -O cert.ndncert "{{ URL }}/cert/get/?name={{ quoted_cert_name }}"
+    ndnsec-install-cert -f cert.ndncert
 
 To see what certificates has been installed on the system and which ones are default, you can use the following command:
 
-ndnsec-ls-identity -C
-
-
+    ndnsec-ls-identity -vvv
 
 Other useful commands include:
 
-ndnsec-dump-certificate
-ndnsec-get-default
-ndnsec-set-default
+    ndnsec-dump-certificate
+    ndnsec-get-default
+    ndnsec-set-default
 
 Sincerely, 
 NDN Testbed Certificate robot

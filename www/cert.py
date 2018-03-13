@@ -50,9 +50,10 @@ def get_certificate():
     else:
         d = ndn.security.v2.certificate_v2.CertificateV2()
         d.wireDecode(bytearray(base64.b64decode(cert['cert'])))
+        v = d.getValidityPeriod()
 
-        notBefore = datetime.utcfromtimestamp(d.getNotBefore() / 1000)
-        notAfter = datetime.utcfromtimestamp(d.getNotAfter() / 1000)
+        notBefore = datetime.utcfromtimestamp(v.getNotBefore() / 1000)
+        notAfter = datetime.utcfromtimestamp(v.getNotAfter() / 1000)
         cert['from'] = notBefore
         cert['to'] = notAfter
         now = datetime.now()
@@ -80,9 +81,10 @@ def list_certs_html():
         info = cert
         d = ndn.security.v2.certificate_v2.CertificateV2()
         d.wireDecode(bytearray(base64.b64decode(cert['cert'])))
+        v = d.getValidityPeriod()
 
-        notBefore = datetime.utcfromtimestamp(d.getNotBefore() / 1000)
-        notAfter = datetime.utcfromtimestamp(d.getNotAfter() / 1000)
+        notBefore = datetime.utcfromtimestamp(v.getNotBefore() / 1000)
+        notAfter = datetime.utcfromtimestamp(v.getNotAfter() / 1000)
         now = datetime.now()
         if notBefore <= now and now <= notAfter:
             info['to'] = notAfter.strftime('%Y-%m-%d')

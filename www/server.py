@@ -126,21 +126,21 @@ def submit_request():
 
         token = mongo.db.tokens.find_one({'email':user_email, 'token':user_token})
         if (token == None):
-            abort(403)
+            abort(406)
 
         site_prefix = token['site_prefix']
         if site_prefix != "":
             try:
                 params = get_operator_for_guest_site(user_email, site_prefix)
             except:
-                abort(403)
+                abort(407)
         else:
             # infer parameters from email
             try:
                 # pre-validation
                 params = get_operator_for_email(user_email)
             except:
-                abort(403)
+                abort(408)
 
         # don't delete token for now, just give user a form to input stuff
         return render_template('request-form.html', URL=app.config['URL'],
