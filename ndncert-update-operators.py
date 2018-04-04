@@ -17,8 +17,6 @@ db.operators.remove()
 
 for key, item in data.items():
     print(key)
-    item['key']=item['cert']
-    del item['cert']
     if type(item['site_emails']) == str:
         item['site_emails'] = [item['site_emails']]
     db.operators.insert(item)
